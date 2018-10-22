@@ -1,0 +1,5 @@
+perf stat -e task-clock -e cycles -e instructions \
+-e branch-instructions -e branch-misses \
+-e idle-cycles-frontend -e idle-cycles-backend \
+-e cache-references -e cache-misses -e L1-dcache-loads -e L1-dcache-load-misses $1
+

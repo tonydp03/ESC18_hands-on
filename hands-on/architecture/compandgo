@@ -1,0 +1,23 @@
+#!/bin/bash
+set -x #echo on
+
+c++ -Ofast -march=native PolyTest.cpp -Wall -funroll-loops -DESTRIN;./a.out
+c++ -Ofast -march=native PolyTest.cpp -Wall -DESTRIN;./a.out
+c++ -Ofast -march=native PolyTest.cpp -Wall -funroll-loops;./a.out
+c++ -Ofast -march=native PolyTest.cpp -Wall;./a.out
+
+c++ -Ofast -msse4.2 PolyTest.cpp -Wall -funroll-loops -DESTRIN;./a.out
+c++ -Ofast -msse4.2 PolyTest.cpp -Wall -DESTRIN;./a.out
+c++ -Ofast -msse4.2 PolyTest.cpp -Wall -funroll-loops;./a.out
+c++ -Ofast -msse4.2 PolyTest.cpp -Wall;./a.out
+
+c++ -O2 -march=native PolyTest.cpp -Wall -funroll-loops -DESTRIN;./a.out
+c++ -O2 -march=native PolyTest.cpp -Wall -DESTRIN;./a.out
+c++ -O2 -march=native PolyTest.cpp -Wall -funroll-loops;./a.out
+c++ -O2 -march=native PolyTest.cpp -Wall;./a.out
+
+c++ -O2 -msse4.2 PolyTest.cpp -Wall -funroll-loops -DESTRIN;./a.out
+c++ -O2 -msse4.2 PolyTest.cpp -Wall -DESTRIN;./a.out
+c++ -O2 -msse4.2 PolyTest.cpp -Wall -funroll-loops;./a.out
+c++ -O2 -msse4.2 PolyTest.cpp -Wall;./a.out
+

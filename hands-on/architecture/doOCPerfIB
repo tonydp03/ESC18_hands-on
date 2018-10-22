@@ -1,0 +1,21 @@
+~/pmu-tools/ocperf.py stat \
+-e task-clock -e cycles -e cycle_activity.stalls_total \
+-e icache.ifetch_stall -e icache.misses \
+-e resource_stalls.any -e rs_events.empty_cycles -e uops_executed.stall_cycles \
+-e uops_executed.cycles_ge_1_uop_exec \
+-e uops_executed.cycles_ge_2_uops_exec \
+-e uops_executed.cycles_ge_3_uops_exec \
+-e uops_executed.cycles_ge_4_uops_exec \
+-e instructions -e branch-instructions -e branch-misses \
+-e offcore_requests_outstanding.demand_data_rd_ge_6 \
+-e arith.fpu_div_active \
+-e mem_load_uops_retired.l1_hit -e mem_load_uops_retired.l2_hit -e mem_load_uops_retired.llc_hit \
+-e mem_load_uops_retired.llc_miss \
+-e fp_comp_ops_exe.sse_scalar_single \
+-e fp_comp_ops_exe.sse_scalar_double \
+-e fp_comp_ops_exe.sse_packed_single \
+-e fp_comp_ops_exe.sse_packed_double \
+-e simd_fp_256.packed_single \
+-e simd_fp_256.packed_double \
+$1
+
