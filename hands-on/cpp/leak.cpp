@@ -8,6 +8,7 @@ int main()
 {
   // "definitely lost"
   auto t = factory();
+  delete t; // added
 }
 
 int* factory()

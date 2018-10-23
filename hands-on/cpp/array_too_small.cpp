@@ -9,6 +9,7 @@ int g(char* buf)
 int main()
 {
   char buf[10];
+  //char buf[50];
   int len = g(buf);
   printf("buf = '%s', len = %d", buf, len);
 }

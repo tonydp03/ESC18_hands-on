@@ -6,9 +6,9 @@ int main()
 {
   auto* p = some_api();
 
-  // free(p);
+  //free(p);
   // delete p;
-  // delete [] p;
+  //delete [] p;
 }
 
 

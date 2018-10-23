@@ -1,0 +1,55 @@
+#include <thread>
+#include <iostream>
+#include <random>
+#include <vector>
+#include <utility>
+#include <mutex>
+#include <chrono>
+
+
+int main()
+{
+  unsigned int numElements = 1000000;
+  unsigned int n = 4;
+  std::mutex myMutex;
+  int totalSum = 0;
+
+  std::vector<int> input;
+  input.reserve(numElements);
+
+  std::mt19937 engine(time(0));
+  std::uniform_int_distribution<> uniformDist(-5, 5);
+
+  for ( unsigned int i=0 ; i< numElements ; ++i)
+    input.emplace_back(uniformDist(engine));
+  // for (auto& b : input)
+  //   std::cout << b << ' ';
+
+  std::cout << "Input size: " << input.size() << '\n';
+
+  auto f = [&](int threadNumber)
+    {
+      auto start = threadNumber * (numElements/n);
+      auto end = start + (numElements/n);
+      if (threadNumber == n -1)
+  	end = numElements;
+      int partialSum = std::accumulate(&input[start], &input[end], 0);
+      std::cout << partialSum << '\n';
+      std::lock_guard<std::mutex> myLock(myMutex);
+      totalSum += partialSum;
+    };
+
+  std::vector<std::thread> v;
+  auto start = std::chrono::system_clock::now();
+  for (int i = 0; i < n; ++i) {
+    v.emplace_back(f, i);
+  };  
+
+  for (auto& t : v) {
+    t.join();
+  };
+
+  std::chrono::duration<double> dur= std::chrono::system_clock::now() - start;
+  std::cout << "Time spent: " << dur.count() << " seconds" << std::endl;
+  std::cout << "Total sum: " << totalSum << std::endl;
+}

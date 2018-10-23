@@ -25,5 +25,5 @@ SomeType* factory()
 
 void do_something(SomeType*)
 {
-  throw 1;
+  //throw 1;
 }
