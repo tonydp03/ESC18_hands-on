@@ -12,7 +12,8 @@ std::default_random_engine eng{std::random_device{}()};
 using Distribution = std::uniform_int_distribution<>;
 Distribution dist;
 
-Duration fill(std::vector<int>& cont, int N)
+template<typename Container>
+Duration fill(Container& cont, int N)
 {
   assert(N >= 0);
 
@@ -33,7 +34,8 @@ Duration fill(std::vector<int>& cont, int N)
   return std::chrono::high_resolution_clock::now() - start;
 }
 
-Duration process(std::vector<int> const& cont)
+template<typename Container>
+Duration process(Container const& cont)
 {
   auto start = std::chrono::high_resolution_clock::now();
 
@@ -54,6 +56,6 @@ int main(int argc, char* argv[])
   std::cout << "vector fill: " << fill(v, N).count() << " s\n";
   std::cout << "vector process: " << process(v).count() << " s\n";
   std::list<int> l;
-  // std::cout << "list fill: " << fill(l, N).count() << " s\n";
-  // std::cout << "list process: " << process(l).count() << " s\n";
+  std::cout << "list fill: " << fill(l, N).count() << " s\n";
+  std::cout << "list process: " << process(l).count() << " s\n";
 }

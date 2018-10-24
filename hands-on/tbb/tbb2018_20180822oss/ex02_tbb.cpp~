@@ -1,0 +1,50 @@
+#include <thread>
+#include <iostream>
+#include <vector>
+#include <utility>
+#include <mutex>
+#include <chrono>
+#include <iomanip>
+
+
+int main()
+{
+  constexpr unsigned int numSteps = 1 << 22;
+  unsigned int n = 4;
+  std::mutex myMutex;
+  double totalSum = 0.;
+  double pi = 0.;
+  constexpr double step = 1.0/(double) numSteps;
+
+  tbb::task_scheduler_init init(n);
+
+  auto f = [&](int threadNumber)
+    {
+      double partialSum = 0.;
+      auto start =  threadNumber * (numSteps/n);
+      auto end = start + (numSteps/n);
+      if (threadNumber == n - 1)
+  	end = numSteps;
+      for (int j = start; j < end; j++){ 
+	auto x = (j+0.5)*step;
+	partialSum += 4.0/(1.0+x*x);
+      }
+      std::lock_guard<std::mutex> myLock(myMutex);
+      totalSum += partialSum;
+    };
+
+  std::vector<std::thread> v;
+  auto start = std::chrono::system_clock::now();
+  for (int i = 0; i < n; ++i) {
+    v.emplace_back(f, i);
+  };  
+
+  for (auto& t : v) {
+    t.join();
+  };
+
+  std::chrono::duration<double> dur= std::chrono::system_clock::now() - start;
+  std::cout << "Time spent: " << dur.count() << " seconds" << std::endl;
+  pi = totalSum * step;
+  std::cout << "Pi: " << pi << std::endl;
+}
