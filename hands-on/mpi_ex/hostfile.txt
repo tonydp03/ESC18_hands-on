@@ -1,0 +1,6 @@
+#hpc-200-06-06 slots=4
+#hpc-200-06-07 slots=4
+###### Note: you can comment hosts in machinefile
+hpc-200-06-05 slots=4
+hpc-200-06-04 slots=4
+#############################################
